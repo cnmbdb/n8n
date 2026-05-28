@@ -1,0 +1,38 @@
+services:
+  n8n:
+    image: n8nio/n8n:2.21.7
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_COMMUNITY_PACKAGES_ENABLED=true
+      - GENERIC_TIMEZONE=Asia/Shanghai
+      - TZ=Asia/Shanghai
+      - N8N_ALLOWED_FILE_ACCESS=/home/node/.n8n-files
+    volumes:
+      - /Users/a2333/.n8n:/home/node/.n8n
+      - /Users/a2333/.n8n-files:/home/node/.n8n-files
+      - /Users/a2333/IDE/n8n/articles:/home/node/.n8n-files/articles
+      - horizon_summaries:/home/node/.n8n-files/horizon-summaries
+
+  horizon:
+    build: /Users/a2333/IDE/n8n/horizon
+    container_name: horizon
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+      - DEEPSEEK_API_KEY=sk-20db0ce8f93c4e2895edbe952a50bd1e
+    volumes:
+      - /Users/a2333/IDE/n8n/horizon/data:/app/data
+      - /Users/a2333/IDE/n8n/horizon/.env:/app/.env:ro
+      - /Users/a2333/IDE/n8n/horizon/scripts/docker-run.sh:/scripts/docker-run.sh:ro
+      - horizon_summaries:/app/data/summaries
+    entrypoint: ["/scripts/docker-run.sh"]
+
+volumes:
+  horizon_summaries:
+    driver: local

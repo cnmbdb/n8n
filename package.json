@@ -1,0 +1,17 @@
+{
+  "name": "n8n",
+  "version": "1.0.0",
+  "description": "",
+  "main": "workflow-code.js",
+  "scripts": {
+    "start": "N8N_SECURE_COOKIE=false n8n start",
+    "dev": "N8N_SECURE_COOKIE=false n8n start --tunnel",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "n8n": "^2.21.7"
+  }
+}
