@@ -17,6 +17,7 @@ services:
       - /Users/a2333/.n8n:/home/node/.n8n
       - /Users/a2333/.n8n-files:/home/node/.n8n-files
       - /Users/a2333/IDE/n8n/articles:/home/node/.n8n-files/articles
+      - /Users/a2333/IDE/n8n/lmg:/home/node/.n8n-files/lmg
       - horizon_summaries:/home/node/.n8n-files/horizon-summaries
 
   horizon:

@@ -42,4 +42,7 @@ git push origin gh-pages
 cd "$PROJECT_DIR"
 git worktree remove "$TMPDIR"
 
+# 5. Sync latest summary to n8n container
+echo "$LOG_PREFIX Syncing summary to n8n..."
+docker exec n8n cp /home/node/.n8n-files/horizon-summaries/horizon-summary-en.md /home/node/.n8n-files/horizon-summary-en.md 2>/dev/null || echo "$LOG_PREFIX Warning: could not sync to n8n container"
 echo "$LOG_PREFIX Done."
