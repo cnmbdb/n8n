@@ -13,6 +13,7 @@ services:
       - GENERIC_TIMEZONE=Asia/Shanghai
       - TZ=Asia/Shanghai
       - N8N_ALLOWED_FILE_ACCESS=/home/node/.n8n-files
+      - N8N_RUNNERS_TASK_TIMEOUT=600
     volumes:
       - /Users/a2333/.n8n:/home/node/.n8n
       - /Users/a2333/.n8n-files:/home/node/.n8n-files
