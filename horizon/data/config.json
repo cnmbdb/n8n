@@ -2,21 +2,85 @@
   "version": "1.0",
   "ai": {
     "provider": "deepseek",
-    "model": "deepseek-chat",
+    "model": "deepseek-reasoner",
     "api_key_env": "DEEPSEEK_API_KEY",
     "temperature": 0.3,
-    "max_tokens": 4096,
+    "max_tokens": 8192,
     "throttle_sec": 0,
     "analysis_concurrency": 2,
-    "enrichment_concurrency": 2
+    "enrichment_concurrency": 2,
+    "languages": ["en", "zh"],
+    "user_interest_keywords": [
+      "AI", "LLM", "大模型", "大语言模型", "GPT", "Claude", "Gemini", "DeepSeek", "Qwen", "通义千问", "文心一言", "豆包", "Kimi", "智谱", "GLM", "盘古", "混元", "MiniMax",
+      "transformer", "diffusion", "生成式", "推理", "inference", "MoE", "RAG", "Agent", "智能体", "具身智能", "embodied",
+      "国产模型", "国内模型", "国产AI", "中国AI", "中文大模型", "开源模型", "open-source model",
+      "智能驾驶", "自动驾驶", "autonomous driving", "端到端", "E2E", "BEV", "Occupancy", "Tesla", "FSD", "蔚来", "小鹏", "理想", "比亚迪", "BYD", "小米SU7", "小米汽车", "华为问界", "问界", "智界", "享界", "尊界", "极氪", "零跑", "小米", "Huawei", "Drive",
+      "数码", "digital", "智能手机", "iPhone", "Huawei Pura", "Mate", "Xiaomi", "OPPO", "vivo", "荣耀", "HONOR", "Samsung", "Galaxy", "MacBook", "iPad", "Apple Watch", "AirPods",
+      "芯片", "chip", "GPU", "NPU", "麒麟", "Kirin", "骁龙", "Snapdragon", "天玑", "Dimensity", "Apple Silicon", "M3", "M4", "NVIDIA", "RTX",
+      "机器人", "robot", "Figure", "Optimus", "Unitree", "宇树", "智元", "银河通用", "众擎", "Booster", "Tesla Bot"
+    ]
   },
   "sources": {
     "hackernews": {
       "enabled": true,
-      "fetch_top_stories": 10,
-      "min_score": 80
+      "fetch_top_stories": 30,
+      "min_score": 100
     },
     "rss": [
+      {
+        "name": "机器之心",
+        "url": "https://wechat2rss.xlab.app/feed/51e92aad2728acdd1fda7314be32b16639353001.xml",
+        "enabled": true,
+        "category": "ai-china"
+      },
+      {
+        "name": "量子位",
+        "url": "https://wechat2rss.xlab.app/feed/7131b577c61365cb47e81000738c10d872685908.xml",
+        "enabled": true,
+        "category": "ai-china"
+      },
+      {
+        "name": "新智元",
+        "url": "https://wechat2rss.xlab.app/feed/ede30346413ea70dbef5d485ea5cbb95cca446e7.xml",
+        "enabled": true,
+        "category": "ai-china"
+      },
+      {
+        "name": "IT之家",
+        "url": "https://www.ithome.com/rss/",
+        "enabled": true,
+        "category": "tech-cn"
+      },
+      {
+        "name": "少数派",
+        "url": "https://sspai.com/feed",
+        "enabled": true,
+        "category": "digital"
+      },
+      {
+        "name": "爱范儿",
+        "url": "http://www.ifanr.com/feed",
+        "enabled": true,
+        "category": "digital"
+      },
+      {
+        "name": "极客公园",
+        "url": "https://mainssl.geekpark.net/rss.rss",
+        "enabled": true,
+        "category": "tech-cn"
+      },
+      {
+        "name": "36氪",
+        "url": "https://36kr.com/feed",
+        "enabled": true,
+        "category": "tech-business-cn"
+      },
+      {
+        "name": "钛媒体",
+        "url": "https://www.tmtpost.com/feed",
+        "enabled": true,
+        "category": "tech-business-cn"
+      },
       {
         "name": "Hugging Face Blog",
         "url": "https://huggingface.co/blog/feed.xml",
@@ -42,68 +106,26 @@
         "category": "ai"
       },
       {
-        "name": "Meta AI Blog",
-        "url": "https://ai.meta.com/blog/rss/",
-        "enabled": true,
-        "category": "ai"
-      },
-      {
-        "name": "Microsoft AI Blog",
-        "url": "https://blogs.microsoft.com/ai/feed/",
-        "enabled": true,
-        "category": "ai"
-      },
-      {
         "name": "Simon Willison",
         "url": "https://simonwillison.net/atom/everything/",
         "enabled": true,
         "category": "ai-tools"
       },
       {
-        "name": "The Batch (Andrew Ng)",
-        "url": "https://www.deeplearning.ai/the-batch/feed/",
+        "name": "The Verge",
+        "url": "https://www.theverge.com/rss/index.xml",
         "enabled": true,
-        "category": "ai"
+        "category": "tech"
       },
       {
-        "name": "Towards Data Science",
-        "url": "https://towardsdatascience.com/feed",
+        "name": "Ars Technica",
+        "url": "https://feeds.arstechnica.com/arstechnica/technology-lab",
         "enabled": true,
-        "category": "ai-ml"
-      },
-      {
-        "name": "Papers With Code",
-        "url": "https://paperswithcode.com/latest.rss",
-        "enabled": true,
-        "category": "ai-research"
+        "category": "tech"
       },
       {
         "name": "MIT Technology Review AI",
         "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed",
-        "enabled": true,
-        "category": "ai-news"
-      },
-      {
-        "name": "The Verge AI",
-        "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
-        "enabled": true,
-        "category": "ai-news"
-      },
-      {
-        "name": "Ars Technica AI",
-        "url": "https://feeds.arstechnica.com/arstechnica/technology-lab",
-        "enabled": true,
-        "category": "ai-news"
-      },
-      {
-        "name": "VentureBeat AI",
-        "url": "https://venturebeat.com/category/ai/feed/",
-        "enabled": true,
-        "category": "ai-news"
-      },
-      {
-        "name": "AI News (artificialintelligence-news.com)",
-        "url": "https://www.artificialintelligence-news.com/feed/",
         "enabled": true,
         "category": "ai-news"
       }
@@ -117,15 +139,7 @@
           "sort": "hot",
           "time_filter": "day",
           "fetch_limit": 20,
-          "min_score": 50
-        },
-        {
-          "subreddit": "artificial",
-          "enabled": true,
-          "sort": "hot",
-          "time_filter": "day",
-          "fetch_limit": 15,
-          "min_score": 30
+          "min_score": 80
         },
         {
           "subreddit": "LocalLLaMA",
@@ -133,7 +147,7 @@
           "sort": "hot",
           "time_filter": "day",
           "fetch_limit": 15,
-          "min_score": 30
+          "min_score": 50
         },
         {
           "subreddit": "singularity",
@@ -141,31 +155,7 @@
           "sort": "hot",
           "time_filter": "day",
           "fetch_limit": 15,
-          "min_score": 30
-        },
-        {
-          "subreddit": "ChatGPT",
-          "enabled": true,
-          "sort": "hot",
-          "time_filter": "day",
-          "fetch_limit": 10,
-          "min_score": 50
-        },
-        {
-          "subreddit": "StableDiffusion",
-          "enabled": true,
-          "sort": "hot",
-          "time_filter": "day",
-          "fetch_limit": 10,
-          "min_score": 30
-        },
-        {
-          "subreddit": "langchain",
-          "enabled": true,
-          "sort": "hot",
-          "time_filter": "day",
-          "fetch_limit": 10,
-          "min_score": 20
+          "min_score": 80
         }
       ],
       "fetch_comments": 5
@@ -192,6 +182,31 @@
         "enabled": true
       },
       {
+        "type": "user_events",
+        "username": "QwenLM",
+        "enabled": true
+      },
+      {
+        "type": "user_events",
+        "username": "deepseek-ai",
+        "enabled": true
+      },
+      {
+        "type": "user_events",
+        "username": "THUDM",
+        "enabled": true
+      },
+      {
+        "type": "user_events",
+        "username": "01-ai",
+        "enabled": true
+      },
+      {
+        "type": "user_events",
+        "username": "moonshotai",
+        "enabled": true
+      },
+      {
         "type": "repo_releases",
         "owner": "huggingface",
         "repo": "transformers",
@@ -199,20 +214,14 @@
       },
       {
         "type": "repo_releases",
-        "owner": "langchain-ai",
-        "repo": "langchain",
+        "owner": "vllm-project",
+        "repo": "vllm",
         "enabled": true
       },
       {
         "type": "repo_releases",
         "owner": "ollama",
         "repo": "ollama",
-        "enabled": true
-      },
-      {
-        "type": "repo_releases",
-        "owner": "vllm-project",
-        "repo": "vllm",
         "enabled": true
       },
       {
@@ -224,7 +233,7 @@
     ]
   },
   "filtering": {
-    "ai_score_threshold": 4.0,
+    "ai_score_threshold": 6.0,
     "time_window_hours": 24
   },
   "webhook": {

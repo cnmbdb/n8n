@@ -94,3 +94,36 @@ def test_analyze_batch_concurrent_preserves_order(monkeypatch):
     result = asyncio.run(analyzer.analyze_batch(items))
 
     assert [item.id for item in result] == [item.id for item in items]
+
+
+def test_get_user_interests_returns_joined_keywords():
+    """Verify that configured keywords are joined into a comma-separated string."""
+    client = SimpleNamespace(
+        config=SimpleNamespace(
+            user_interest_keywords=["LLM", "DeepSeek", "小米汽车"]
+        )
+    )
+    analyzer = ContentAnalyzer(client)
+    result = analyzer._get_user_interests()
+
+    assert result == "LLM, DeepSeek, 小米汽车"
+
+
+def test_get_user_interests_falls_back_when_empty():
+    """Verify that an empty list of keywords yields a clear fallback message."""
+    client = SimpleNamespace(
+        config=SimpleNamespace(user_interest_keywords=[])
+    )
+    analyzer = ContentAnalyzer(client)
+    result = analyzer._get_user_interests()
+
+    assert "none configured" in result
+
+
+def test_get_user_interests_falls_back_when_attribute_missing():
+    """Verify that a missing user_interest_keywords attribute is handled gracefully."""
+    client = SimpleNamespace(config=SimpleNamespace())
+    analyzer = ContentAnalyzer(client)
+    result = analyzer._get_user_interests()
+
+    assert "none configured" in result

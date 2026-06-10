@@ -14,12 +14,15 @@ services:
       - TZ=Asia/Shanghai
       - N8N_ALLOWED_FILE_ACCESS=/home/node/.n8n-files
       - N8N_RUNNERS_TASK_TIMEOUT=600
+      - NODES_EXCLUDE=[]
     volumes:
       - /Users/a2333/.n8n:/home/node/.n8n
       - /Users/a2333/.n8n-files:/home/node/.n8n-files
       - /Users/a2333/IDE/n8n/articles:/home/node/.n8n-files/articles
       - /Users/a2333/IDE/n8n/lmg:/home/node/.n8n-files/lmg
-      - horizon_summaries:/home/node/.n8n-files/horizon-summaries
+      - /Users/a2333/IDE/n8n/horizon/data/summaries:/home/node/.n8n-files/horizon-summaries
+      - /Users/a2333/IDE/n8n/n8n-init:/docker-init-scripts:ro
+    entrypoint: ["/docker-init-scripts/entrypoint.sh"]
 
   horizon:
     build: /Users/a2333/IDE/n8n/horizon
@@ -32,9 +35,4 @@ services:
       - /Users/a2333/IDE/n8n/horizon/data:/app/data
       - /Users/a2333/IDE/n8n/horizon/.env:/app/.env:ro
       - /Users/a2333/IDE/n8n/horizon/scripts/docker-run.sh:/scripts/docker-run.sh:ro
-      - horizon_summaries:/app/data/summaries
     entrypoint: ["/scripts/docker-run.sh"]
-
-volumes:
-  horizon_summaries:
-    driver: local

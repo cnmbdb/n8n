@@ -66,6 +66,9 @@ class AIConfig(BaseModel):
     analysis_concurrency: int = 1
     enrichment_concurrency: int = 1
     languages: List[str] = Field(default_factory=lambda: ["en"])
+    # Optional user interest keywords used to bias the scoring prompt.
+    # Items whose title/content match these keywords get a +1..+2 score boost.
+    user_interest_keywords: List[str] = Field(default_factory=list)
     # Azure OpenAI specific; required when provider == AZURE
     azure_endpoint_env: Optional[str] = None
     api_version: Optional[str] = None

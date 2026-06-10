@@ -360,7 +360,7 @@ Content is scored 0-10:
 ```json
 {
   "filtering": {
-    "ai_score_threshold": 7.0,
+    "ai_score_threshold": 6.0,
     "time_window_hours": 24
   }
 }
@@ -368,6 +368,38 @@ Content is scored 0-10:
 
 - `ai_score_threshold`: Only include content scoring >= this value
 - `time_window_hours`: Fetch content from last N hours
+
+## User Interest Keywords
+
+You can bias the AI scorer toward topics you care about by listing keywords
+under `ai.user_interest_keywords`. When a content item's title or body clearly
+matches one or more of these keywords, the scorer applies a **+1 to +2 boost**
+on top of the base score. This is a soft preference — generic content still
+scores low even if a keyword appears incidentally.
+
+```json
+{
+  "ai": {
+    "user_interest_keywords": [
+      "LLM", "DeepSeek", "Qwen", "Kimi",
+      "智能驾驶", "小米汽车", "Apple",
+      "GPU", "NPU", "机器人"
+    ]
+  }
+}
+```
+
+Common use cases:
+
+- Surface **domestic Chinese AI model releases** (`DeepSeek`, `Qwen`, `Kimi`, `GLM`, `豆包`, `文心一言`, `通义千问`, `智谱`, `盘古`, `混元`).
+- Boost **EV / smart-car news** (`小米汽车`, `问界`, `理想`, `小鹏`, `蔚来`, `FSD`, `端到端`, `BEV`, `Occupancy`).
+- Boost **consumer electronics** (`iPhone`, `Mate`, `Xiaomi`, `OPPO`, `vivo`, `MacBook`, `Apple Silicon`).
+- Boost **chip / hardware** (`麒麟`, `骁龙`, `天玑`, `RTX`, `NVIDIA`).
+- Surface **AI agents / embodied AI** (`Agent`, `智能体`, `具身智能`, `Figure`, `Unitree`).
+
+Mix Chinese and English keywords freely — both languages are matched. Keep the
+list focused (≈20-50 keywords) for best results; very long lists dilute the
+boost effect.
 
 ## Environment Variable Substitution
 

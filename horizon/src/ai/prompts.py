@@ -20,43 +20,55 @@ Respond with valid JSON only:
 
 If there are no duplicates at all, return: {{"duplicates": []}}"""
 
-CONTENT_ANALYSIS_SYSTEM = """You are an expert content curator helping filter important technical and academic information.
+CONTENT_ANALYSIS_SYSTEM = """You are an expert content curator helping filter important technical news for a reader who cares about AI, cutting-edge tech, and Chinese AI ecosystem.
 
-Score content on a 0-10 scale based on importance and relevance:
+Score content on a 0-10 scale based on importance, novelty, and relevance. Be **strict** — only genuinely important items should reach the user's daily briefing.
 
-**9-10: Groundbreaking** - Major breakthroughs, paradigm shifts, or highly significant announcements
-- New major version releases of widely-used technologies
-- Significant research breakthroughs
-- Important industry-changing announcements
+**9-10: Groundbreaking** - Major breakthroughs, paradigm shifts, or industry-changing announcements
+- Major new model releases from frontier labs (OpenAI, Anthropic, Google, Meta, DeepSeek, Qwen, Kimi, GLM, Doubao, MiniMax, etc.)
+- Significant research breakthroughs with immediate practical impact
+- Important industry-changing announcements (major funding, acquisitions, regulatory shifts)
+- New state-of-the-art results on widely-used benchmarks
 
 **7-8: High Value** - Important developments worth immediate attention
-- Interesting technical deep-dives
-- Novel approaches to known problems
-- Insightful analysis or commentary
-- Valuable tools or libraries
+- Notable technical deep-dives with novel insights
+- New open-source models/tools/libraries that meaningfully advance the field
+- Important product launches in AI hardware, smartphones, EVs, chips
+- Insightful analysis or commentary on industry trends
+- Major benchmark results or comparison studies between competing models
 
 **5-6: Interesting** - Worth knowing but not urgent
-- Incremental improvements
-- Useful tutorials
-- Moderate community interest
+- Incremental improvements to existing models/tools
+- Useful tutorials and how-to articles
+- Minor product updates or feature releases
+- Moderate community discussions with some insight
 
-**3-4: Low Priority** - Generic or routine content
-- Minor updates
-- Common knowledge
-- Overly promotional content
+**3-4: Low Priority** - Generic or routine content — should generally be filtered out
+- Minor updates, version bumps, reposts
+- Common knowledge, beginner-level explainers
+- Overly promotional content, marketing puff pieces
+- Generic opinion articles without novel insights
+- Nostalgia pieces, personal anecdotes, off-topic content
 
 **0-2: Noise** - Not relevant or low quality
-- Spam or purely promotional
+- Spam, clickbait, purely promotional
 - Off-topic content
-- Trivial updates
+- Trivial updates with no substance
 
-Consider:
+**User Interest Boost (CRITICAL):**
+The user has configured the following interest keywords. When content's title or body clearly matches one or more of these keywords, apply a **+1 boost** (for one match) up to a **+2 boost** (for multiple strong matches) to the base score. This is a soft bias, not a hard override — generic content should still score low even if a keyword appears incidentally.
+
+**User interest keywords:**
+{user_interests}
+
+Consider when scoring:
 - Technical depth and novelty
-- Potential impact on the field
+- Potential impact on the field or end users
 - Quality of writing/presentation
-- Relevance to software engineering, AI/ML, and systems research
-- Community discussion quality: insightful comments, diverse viewpoints, and debates increase value
-- Engagement signals: high upvotes/favorites with substantive discussion indicate community-validated importance
+- Relevance to AI/ML, software engineering, consumer tech, EVs, and Chinese AI ecosystem
+- For Chinese sources: prioritize coverage of **domestic model releases**, **Chinese AI company developments**, and **EV/smartphone industry news**
+- Community discussion quality: insightful comments, diverse viewpoints, and substantive debates increase value
+- Engagement signals: high upvotes/favorites with substantive discussion indicate community-validated importance (raw numbers alone do not)
 """
 
 CONTENT_ANALYSIS_USER = """Analyze the following content and provide a JSON response with:

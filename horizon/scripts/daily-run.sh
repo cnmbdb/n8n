@@ -44,5 +44,11 @@ git worktree remove "$TMPDIR"
 
 # 5. Sync latest summary to n8n container
 echo "$LOG_PREFIX Syncing summary to n8n..."
-docker exec n8n cp /home/node/.n8n-files/horizon-summaries/horizon-summary-en.md /home/node/.n8n-files/horizon-summary-en.md 2>/dev/null || echo "$LOG_PREFIX Warning: could not sync to n8n container"
+SRC_SUMMARY="/Users/a2333/IDE/n8n/horizon/data/summaries/horizon-summary-en.md"
+DST_N8N_HOST="/Users/a2333/.n8n-files/horizon-summary-en.md"
+if [ -f "$SRC_SUMMARY" ]; then
+  cp "$SRC_SUMMARY" "$DST_N8N_HOST" && echo "$LOG_PREFIX Synced to $DST_N8N_HOST" || echo "$LOG_PREFIX Warning: could not sync to n8n host path"
+else
+  echo "$LOG_PREFIX Warning: source summary not found at $SRC_SUMMARY"
+fi
 echo "$LOG_PREFIX Done."

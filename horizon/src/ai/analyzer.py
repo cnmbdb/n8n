@@ -41,6 +41,18 @@ class ContentAnalyzer:
         concurrency = getattr(config, "analysis_concurrency", 1)
         return max(concurrency, 1)
 
+    def _get_user_interests(self) -> str:
+        """Return the configured user interest keywords as a comma-separated string.
+
+        Falls back to a generic "no specific interests" placeholder so the
+        prompt template never breaks when the field is absent.
+        """
+        config = getattr(self.client, "config", None)
+        keywords = getattr(config, "user_interest_keywords", None) or []
+        if not keywords:
+            return "(none configured — score purely on intrinsic importance)"
+        return ", ".join(keywords)
+
     async def analyze_batch(self, items: List[ContentItem]) -> List[ContentItem]:
         throttle_sec = self._get_throttle_sec()
         concurrency = self._get_concurrency()
@@ -139,9 +151,15 @@ class ContentAnalyzer:
             discussion_section=discussion_section
         )
 
+        # Inject user interest keywords into the system prompt so the model
+        # can apply the +1..+2 boost described in CONTENT_ANALYSIS_SYSTEM.
+        system_prompt = CONTENT_ANALYSIS_SYSTEM.format(
+            user_interests=self._get_user_interests(),
+        )
+
         # Get AI completion
         response = await self.client.complete(
-            system=CONTENT_ANALYSIS_SYSTEM,
+            system=system_prompt,
             user=user_prompt,
         )
 

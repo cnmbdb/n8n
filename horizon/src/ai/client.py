@@ -116,7 +116,11 @@ class OpenAIClient(AIClient):
     }
 
     # Providers that don't support response_format
-    _NO_RESPONSE_FORMAT = {"minimax"}
+    # - minimax: API rejects response_format
+    # - deepseek: the reasoner model (deepseek-reasoner) does not support
+    #   response_format; the chat model supports it but we keep behavior
+    #   uniform per provider for safety.
+    _NO_RESPONSE_FORMAT = {"minimax", "deepseek"}
 
     # Providers that need temperature clamped to (0, 1]
     _TEMP_CLAMP = {"minimax"}
