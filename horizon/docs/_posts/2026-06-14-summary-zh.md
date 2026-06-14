@@ -1,4 +1,9 @@
-# Horizon 每日速递 - 2026-06-14
+---
+layout: default
+title: "Horizon Summary: 2026-06-14 (ZH)"
+date: 2026-06-14
+lang: zh
+---
 
 > 从 138 条内容中筛选出 30 条重要资讯。
 
@@ -648,4 +653,3 @@ rss · Simon Willison · 6月13日 23:55
 **标签**: `#Python`, `#WebAssembly`, `#PyPI`, `#Pyodide`, `#open-source`
 
 ---
-

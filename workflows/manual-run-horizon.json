@@ -1,0 +1,61 @@
+{
+  "id": "manual-run-horizon",
+  "name": "手动运行 Horizon 新闻摘要",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "ManualTrigger",
+      "name": "手动触发",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        260,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8765/run-horizon",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"hours\": 24,\n  \"wait\": true\n}",
+        "options": {
+          "timeout": 3600000
+        }
+      },
+      "id": "RunHorizon",
+      "name": "启动 Horizon",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "手动触发": {
+      "main": [
+        [
+          {
+            "node": "启动 Horizon",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "active": false,
+  "versionId": "manual-horizon-trigger-v1",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}

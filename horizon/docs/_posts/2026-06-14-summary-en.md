@@ -1,4 +1,9 @@
-# Horizon Daily - 2026-06-14
+---
+layout: default
+title: "Horizon Summary: 2026-06-14 (EN)"
+date: 2026-06-14
+lang: en
+---
 
 > From 138 items, 30 important content pieces were selected
 
@@ -648,4 +653,3 @@ rss · Simon Willison · Jun 13, 23:55
 **Tags**: `#Python`, `#WebAssembly`, `#PyPI`, `#Pyodide`, `#open-source`
 
 ---
-
