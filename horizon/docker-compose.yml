@@ -2,12 +2,11 @@ services:
   horizon:
     build: .
     container_name: horizon
+    environment:
+      - TZ=Asia/Shanghai
     volumes:
       - ./data:/app/data
       - ./.env:/app/.env:ro
-    environment:
-      - TZ=UTC
+      - ./scripts/docker-run.sh:/scripts/docker-run.sh:ro
+    entrypoint: ["/scripts/docker-run.sh"]
     restart: unless-stopped
-    # Run daily at 8:00 AM UTC (adjust as needed)
-    # For one-time run, use: docker compose run --rm horizon
-    command: ["--hours", "24"]

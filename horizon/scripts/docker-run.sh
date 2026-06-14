@@ -1,8 +1,6 @@
 #!/bin/sh
-# Horizon daily runner. Keeps summaries/ root clean:
-#   summaries/horizon-summary-en.md   <- latest English (n8n reads this)
-#   summaries/horizon-summary-zh.md   <- latest Chinese
-#   summaries/archive/horizon-YYYY-MM-DD-{en,zh}.md  <- history
+# Horizon daily runner. Keep final summaries only in:
+#   summaries/archive/horizon-YYYY-MM-DD-{en,zh}.md
 
 set -e
 
@@ -33,30 +31,29 @@ while true; do
   ARCHIVE=/app/data/summaries/archive
   mkdir -p "$ARCHIVE"
 
-  # Move today's dated files into archive/
+  # Move dated summaries into archive; n8n reads the dated archive file.
   mv /app/data/summaries/horizon-*-en.md "$ARCHIVE/" 2>/dev/null || true
   mv /app/data/summaries/horizon-*-zh.md "$ARCHIVE/" 2>/dev/null || true
 
-  # Copy the most recent en/zh from archive back to root with stable names
   LATEST_EN=$(ls -t "$ARCHIVE"/horizon-*-en.md 2>/dev/null | head -1)
   LATEST_ZH=$(ls -t "$ARCHIVE"/horizon-*-zh.md 2>/dev/null | head -1)
 
   if [ -n "$LATEST_EN" ] && [ -s "$LATEST_EN" ]; then
-    cp "$LATEST_EN" /app/data/summaries/horizon-summary-en.md
-    echo "[$(date)] -> horizon-summary-en.md ($(wc -c < "$LATEST_EN") bytes)"
+    echo "[$(date)] -> $LATEST_EN ($(wc -c < "$LATEST_EN") bytes)"
   else
     echo "[$(date)] WARNING: no en summary in archive"
   fi
 
   if [ -n "$LATEST_ZH" ] && [ -s "$LATEST_ZH" ]; then
-    cp "$LATEST_ZH" /app/data/summaries/horizon-summary-zh.md
-    echo "[$(date)] -> horizon-summary-zh.md ($(wc -c < "$LATEST_ZH") bytes)"
+    echo "[$(date)] -> $LATEST_ZH ($(wc -c < "$LATEST_ZH") bytes)"
   else
     echo "[$(date)] WARNING: no zh summary in archive (languages.zh may be disabled)"
   fi
 
-  # Drop the redundant alias
+  # Drop redundant aliases so archive remains the single source of truth.
   rm -f /app/data/summaries/latest-en.md
+  rm -f /app/data/summaries/horizon-summary-en.md /app/data/summaries/horizon-summary-zh.md
+  rm -f "$ARCHIVE"/horizon-summary-en.md "$ARCHIVE"/horizon-summary-zh.md
 
   echo "[$(date)] Horizon finished."
 done

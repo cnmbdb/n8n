@@ -9,6 +9,7 @@ services:
       - N8N_HOST=localhost
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
+      - N8N_SECURE_COOKIE=false
       - N8N_COMMUNITY_PACKAGES_ENABLED=true
       - GENERIC_TIMEZONE=Asia/Shanghai
       - TZ=Asia/Shanghai
@@ -21,18 +22,6 @@ services:
       - /Users/a2333/IDE/n8n/articles:/home/node/.n8n-files/articles
       - /Users/a2333/IDE/n8n/lmg:/home/node/.n8n-files/lmg
       - /Users/a2333/IDE/n8n/horizon/data/summaries:/home/node/.n8n-files/horizon-summaries
+      - /Users/a2333/IDE/n8n/horizon/data/summaries/archive:/home/node/.n8n-files/horizon-archive
       - /Users/a2333/IDE/n8n/n8n-init:/docker-init-scripts:ro
     entrypoint: ["/docker-init-scripts/entrypoint.sh"]
-
-  horizon:
-    build: /Users/a2333/IDE/n8n/horizon
-    container_name: horizon
-    restart: unless-stopped
-    environment:
-      - TZ=Asia/Shanghai
-      - DEEPSEEK_API_KEY=sk-20db0ce8f93c4e2895edbe952a50bd1e
-    volumes:
-      - /Users/a2333/IDE/n8n/horizon/data:/app/data
-      - /Users/a2333/IDE/n8n/horizon/.env:/app/.env:ro
-      - /Users/a2333/IDE/n8n/horizon/scripts/docker-run.sh:/scripts/docker-run.sh:ro
-    entrypoint: ["/scripts/docker-run.sh"]
