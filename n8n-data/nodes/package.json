@@ -1,0 +1,8 @@
+{
+  "name": "installed-nodes",
+  "private": true,
+  "dependencies": {
+    "n8n-nodes-wechat-offiaccount": "0.3.6",
+    "@basetenlabs/n8n-nodes-baseten": "1.0.0"
+  }
+}
