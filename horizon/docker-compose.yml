@@ -6,8 +6,10 @@ services:
       - ./data:/app/data
       - ./.env:/app/.env:ro
     environment:
-      - TZ=UTC
+      - TZ=Asia/Shanghai
+      - HORIZON_TRIGGER_HOST=0.0.0.0
+      - HORIZON_TRIGGER_PORT=8765
+    ports:
+      - "8765:8765"
     restart: unless-stopped
-    # Run daily at 8:00 AM UTC (adjust as needed)
-    # For one-time run, use: docker compose run --rm horizon
-    command: ["--hours", "24"]
+    entrypoint: ["uv", "run", "python", "-m", "src.services.trigger_server"]
