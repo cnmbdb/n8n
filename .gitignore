@@ -21,3 +21,5 @@ articles
 lmg/*
 !lmg/.gitkeep
 logs
+*.sqlite-wal
+*.sqlite-shm
