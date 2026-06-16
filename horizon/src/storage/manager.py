@@ -57,9 +57,11 @@ class StorageManager:
         self.data_dir = Path(data_dir)
         self.config_path = self.data_dir / "config.json"
         self.summaries_dir = self.data_dir / "summaries"
+        self.summary_archive_dir = self.summaries_dir / "archive"
 
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self.summaries_dir.mkdir(parents=True, exist_ok=True)
+        self.summary_archive_dir.mkdir(parents=True, exist_ok=True)
 
     def load_config(self) -> Config:
         if not self.config_path.exists():
@@ -110,7 +112,7 @@ class StorageManager:
 
     def save_daily_summary(self, date: str, markdown: str, language: str = "en") -> Path:
         filename = f"horizon-{date}-{language}.md"
-        filepath = self.summaries_dir / filename
+        filepath = self.summary_archive_dir / filename
 
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(markdown)

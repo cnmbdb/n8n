@@ -54,6 +54,16 @@ def test_load_config_success(tmp_path):
     assert config.ai.provider == "anthropic"
 
 
+def test_save_daily_summary_writes_to_archive(tmp_path):
+    storage = StorageManager(data_dir=str(tmp_path))
+
+    path = storage.save_daily_summary("2026-06-16", "# 今日摘要", language="zh")
+
+    assert path == tmp_path / "summaries" / "archive" / "horizon-2026-06-16-zh.md"
+    assert path.read_text(encoding="utf-8") == "# 今日摘要"
+    assert not (tmp_path / "summaries" / "horizon-2026-06-16-zh.md").exists()
+
+
 class TestExpandEnvVars:
     """Recursive ${VAR} expansion on config dicts/lists/strings."""
 
