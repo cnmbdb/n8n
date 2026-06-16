@@ -30,10 +30,12 @@ elif command -v sqlite3 >/dev/null 2>&1; then
 fi
 
 if [ "$restore_db" = "1" ]; then
+  rm -f "$runtime_dir/database.sqlite-wal" "$runtime_dir/database.sqlite-shm"
   if [ -f "$runtime_dir/database.sqlite" ]; then
     mv "$runtime_dir/database.sqlite" "$runtime_dir/database.sqlite.backup-$timestamp"
   fi
   cp "$seed_dir/database.sqlite" "$runtime_dir/database.sqlite"
+  rm -f "$runtime_dir/database.sqlite-wal" "$runtime_dir/database.sqlite-shm"
 fi
 
 if [ ! -f "$runtime_dir/config" ] || [ "${FORCE_RESTORE_N8N_CONFIG:-0}" = "1" ]; then
