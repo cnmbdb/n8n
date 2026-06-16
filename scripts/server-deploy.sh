@@ -23,7 +23,8 @@ if [ ! -f "$runtime_dir/database.sqlite" ]; then
 elif command -v sqlite3 >/dev/null 2>&1; then
   integrity="$(sqlite3 "$runtime_dir/database.sqlite" 'PRAGMA integrity_check;' 2>/dev/null || true)"
   workflow_count="$(sqlite3 "$runtime_dir/database.sqlite" 'select count(*) from workflow_entity;' 2>/dev/null || echo 0)"
-  if [ "$integrity" != "ok" ] || [ "${workflow_count:-0}" = "0" ]; then
+  user_count="$(sqlite3 "$runtime_dir/database.sqlite" 'select count(*) from user;' 2>/dev/null || echo 0)"
+  if [ "$integrity" != "ok" ] || [ "${workflow_count:-0}" = "0" ] || [ "${user_count:-0}" = "0" ]; then
     restore_db=1
   fi
 fi
