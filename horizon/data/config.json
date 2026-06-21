@@ -16,8 +16,8 @@
   "sources": {
     "hackernews": {
       "enabled": true,
-      "fetch_top_stories": 10,
-      "min_score": 80
+      "fetch_top_stories": 30,
+      "min_score": 20
     },
     "rss": [
       {
@@ -28,7 +28,7 @@
       },
       {
         "name": "OpenAI Blog",
-        "url": "https://openai.com/blog/rss.xml",
+        "url": "https://openai.com/news/rss.xml",
         "enabled": true,
         "category": "ai"
       },
@@ -41,19 +41,7 @@
       {
         "name": "DeepMind Blog",
         "url": "https://deepmind.google/blog/rss.xml",
-        "enabled": true,
-        "category": "ai"
-      },
-      {
-        "name": "Meta AI Blog",
-        "url": "https://ai.meta.com/blog/rss/",
-        "enabled": true,
-        "category": "ai"
-      },
-      {
-        "name": "Microsoft AI Blog",
-        "url": "https://blogs.microsoft.com/ai/feed/",
-        "enabled": true,
+        "enabled": false,
         "category": "ai"
       },
       {
@@ -61,12 +49,6 @@
         "url": "https://simonwillison.net/atom/everything/",
         "enabled": true,
         "category": "ai-tools"
-      },
-      {
-        "name": "The Batch (Andrew Ng)",
-        "url": "https://www.deeplearning.ai/the-batch/feed/",
-        "enabled": true,
-        "category": "ai"
       },
       {
         "name": "Towards Data Science",
@@ -105,14 +87,20 @@
         "category": "ai-news"
       },
       {
-        "name": "AI News (artificialintelligence-news.com)",
-        "url": "https://www.artificialintelligence-news.com/feed/",
+        "name": "NVIDIA Blog",
+        "url": "https://blogs.nvidia.com/feed/",
         "enabled": true,
         "category": "ai-news"
+      },
+      {
+        "name": "AWS Machine Learning Blog",
+        "url": "https://aws.amazon.com/blogs/machine-learning/feed/",
+        "enabled": true,
+        "category": "ai-ml"
       }
     ],
     "reddit": {
-      "enabled": true,
+      "enabled": false,
       "subreddits": [
         {
           "subreddit": "MachineLearning",
@@ -173,6 +161,10 @@
       ],
       "fetch_comments": 5
     },
+    "telegram": {
+      "enabled": false,
+      "channels": []
+    },
     "github": [
       {
         "type": "user_events",
@@ -223,12 +215,66 @@
         "owner": "ggerganov",
         "repo": "llama.cpp",
         "enabled": true
+      },
+      {
+        "type": "repo_releases",
+        "owner": "openai",
+        "repo": "openai-python",
+        "enabled": true
+      },
+      {
+        "type": "repo_releases",
+        "owner": "microsoft",
+        "repo": "autogen",
+        "enabled": true
+      },
+      {
+        "type": "repo_releases",
+        "owner": "langgenius",
+        "repo": "dify",
+        "enabled": true
+      },
+      {
+        "type": "repo_releases",
+        "owner": "modelcontextprotocol",
+        "repo": "servers",
+        "enabled": true
+      },
+      {
+        "type": "repo_releases",
+        "owner": "browser-use",
+        "repo": "browser-use",
+        "enabled": true
+      },
+      {
+        "type": "repo_releases",
+        "owner": "comet-ml",
+        "repo": "opik",
+        "enabled": true
+      },
+      {
+        "type": "repo_releases",
+        "owner": "QwenLM",
+        "repo": "Qwen3",
+        "enabled": true
       }
-    ]
+    ],
+    "ossinsight": {
+      "enabled": true,
+      "period": "past_24_hours",
+      "languages": [
+        "All",
+        "Python",
+        "TypeScript"
+      ],
+      "keywords": [],
+      "min_stars": 10,
+      "max_items": 40
+    }
   },
   "filtering": {
-    "ai_score_threshold": 4.0,
-    "time_window_hours": 24
+    "ai_score_threshold": 3.5,
+    "time_window_hours": 48
   },
   "webhook": {
     "enabled": false
