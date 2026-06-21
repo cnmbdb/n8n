@@ -1,6 +1,8 @@
 services:
   horizon:
-    build: .
+    build:
+      context: .
+      network: host
     container_name: horizon
     volumes:
       - ./data:/app/data
